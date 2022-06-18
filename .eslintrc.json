@@ -10,9 +10,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "parserOptions": {
     "ecmaVersion": 2018
   },
@@ -21,4 +19,3 @@
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }]
   }
 }
-  
