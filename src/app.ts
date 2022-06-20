@@ -1,6 +1,7 @@
 import express from 'express'
 import 'express-async-errors'
 import session, { SessionOptions } from 'express-session'
+import { errorHandler } from './middlewares/error-handler'
 import { Environment } from './utils/environment'
 
 const app = express()
@@ -22,5 +23,7 @@ if (Environment.IS_PRODUCTION) {
 }
 
 app.use(session(options))
+
+app.use(errorHandler)
 
 export { app }

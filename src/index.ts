@@ -1,5 +1,6 @@
 import { app } from './app'
 import { Environment } from './utils/environment'
+import { getErrorMessage } from './utils/get-err-message'
 
 const start = async () => {
   let LISTENING_PORT = 5000
@@ -12,7 +13,7 @@ const start = async () => {
 
     console.log(`App has been lifted at ${new Date()}`)
   } catch (error) {
-    console.error(error)
+    console.error(getErrorMessage(error))
     process.exit(1)
   }
 
