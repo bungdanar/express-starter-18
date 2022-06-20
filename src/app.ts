@@ -1,7 +1,9 @@
 import express from 'express'
 import 'express-async-errors'
 import session, { SessionOptions } from 'express-session'
+import { json } from 'body-parser'
 import { errorHandler } from './middlewares/error-handler'
+import { userRouter } from './routers/user/router'
 import { Environment } from './utils/environment'
 
 const app = express()
@@ -23,6 +25,9 @@ if (Environment.IS_PRODUCTION) {
 }
 
 app.use(session(options))
+app.use(json())
+
+app.use('/api/user', userRouter)
 
 app.use(errorHandler)
 
