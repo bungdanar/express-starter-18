@@ -3,14 +3,16 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 interface AppEnv {
-  readonly NODE_ENV: string | undefined
-  readonly PORT: string | undefined
+  readonly NODE_ENV: string
+  readonly PORT: string
+  readonly SECRET_KEY: string
 }
 
 export class Environment {
   static readonly APP_ENV: AppEnv = {
-    NODE_ENV: process.env.NODE_ENV,
-    PORT: process.env.PORT,
+    NODE_ENV: process.env.NODE_ENV!,
+    PORT: process.env.PORT!,
+    SECRET_KEY: process.env.SECRET_KEY!,
   }
 
   static get IS_PRODUCTION(): boolean {

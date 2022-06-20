@@ -8,7 +8,7 @@ const start = async () => {
     Environment.checkEnvVariables()
 
     // Reassign port
-    LISTENING_PORT = parseInt(Environment.APP_ENV.PORT!)
+    LISTENING_PORT = parseInt(Environment.APP_ENV.PORT)
 
     console.log(`App has been lifted at ${new Date()}`)
   } catch (error) {
