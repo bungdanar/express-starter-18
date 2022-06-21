@@ -39,6 +39,12 @@ export class Authentication {
     await this.saveSessionAsync(req)
   }
 
+  static removeTokenFromSession = async (req: Request) => {
+    req.session.token = undefined
+    await this.saveSessionAsync(req)
+    await this.regenerateSessionAsync(req)
+  }
+
   static verifyToken = (token: string) => {
     return jwt.verify(token, Environment.APP_ENV.SECRET_KEY) as JwtPayload
   }

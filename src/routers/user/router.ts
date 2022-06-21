@@ -14,6 +14,8 @@ router.post(
   UserController.login
 )
 
+router.post('/logout', [requireToken], UserController.logout)
+
 router.get(
   '/currentUser',
   [requireToken, requireCurrentuser],

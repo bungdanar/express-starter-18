@@ -32,4 +32,9 @@ export class UserController {
   static getCurrentUser = async (req: Request, res: Response) => {
     return res.status(200).send(req.currentUser)
   }
+
+  static logout = async (req: Request, res: Response) => {
+    await Authentication.removeTokenFromSession(req)
+    return res.status(200).send({})
+  }
 }
