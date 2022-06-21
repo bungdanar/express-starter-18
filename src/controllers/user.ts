@@ -19,8 +19,7 @@ export class UserController {
       username: 'bungdanar',
     }
 
-    const token = Authentication.generateToken({ ...userData })
-    await Authentication.regenerateSessionWithTokenAsync(req, token)
+    await Authentication.regenerateSessionWithTokenAsync(req, userData)
 
     return res.status(200).send(userData)
   }
