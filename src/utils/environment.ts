@@ -6,6 +6,7 @@ interface AppEnv {
   readonly NODE_ENV: string
   readonly PORT: string
   readonly SECRET_KEY: string
+  readonly SESS_MAX_AGE_IN_MINUTE: number
 }
 
 export class Environment {
@@ -13,10 +14,19 @@ export class Environment {
     NODE_ENV: process.env.NODE_ENV!,
     PORT: process.env.PORT!,
     SECRET_KEY: process.env.SECRET_KEY!,
+    SESS_MAX_AGE_IN_MINUTE: parseInt(process.env.SESS_MAX_AGE_IN_MINUTE!),
   }
 
   static get IS_PRODUCTION(): boolean {
     return this.APP_ENV.NODE_ENV === 'production'
+  }
+
+  static get SESS_MAX_AGE_IN_SECOND(): number {
+    return this.APP_ENV.SESS_MAX_AGE_IN_MINUTE * 60
+  }
+
+  static get SESS_MAX_AGE_IN_MILISECOND(): number {
+    return this.APP_ENV.SESS_MAX_AGE_IN_MINUTE * 60 * 1000
   }
 
   private static throwEnvErrMsg = (msg: string): never => {

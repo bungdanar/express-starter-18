@@ -14,6 +14,7 @@ const options: SessionOptions = {
   cookie: {
     httpOnly: true,
     secure: false,
+    maxAge: Environment.SESS_MAX_AGE_IN_MILISECOND,
   },
   resave: false,
   saveUninitialized: false,
