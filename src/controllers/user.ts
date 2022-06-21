@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 import { UserLoginPayload } from '../data-types/user'
+import { BadRequestError } from '../errors/bad-request-error'
+import { Authentication } from '../utils/authentication'
 
 export class UserController {
   static login = async (
@@ -8,9 +10,18 @@ export class UserController {
   ) => {
     const { username, password } = req.body
 
-    return res.status(200).send({
-      username,
-      password,
-    })
+    if (username.trim() !== 'bungdanar') {
+      throw new BadRequestError('username or password is wrong')
+    }
+
+    const userData = {
+      userId: 1,
+      username: 'bungdanar',
+    }
+
+    const token = Authentication.generateToken({ ...userData })
+    await Authentication.regenerateSessionWithTokenAsync(req, token)
+
+    return res.status(200).send(userData)
   }
 }
