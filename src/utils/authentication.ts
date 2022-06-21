@@ -23,26 +23,20 @@ export class Authentication {
     })
   }
 
-  static regenerateSessionWithTokenAsync = (
-    req: Request,
-    data: JwtSigningPayload
-  ) => {
-    const token = this.generateToken(data)
-
+  private static regenerateSessionAsync = (req: Request) => {
     return new Promise<void>((resolve, reject) => {
-      req.session.regenerate(async (err) => {
+      req.session.regenerate((err) => {
         if (err) return reject(err)
 
-        req.session.token = token
-
-        try {
-          await this.saveSessionAsync(req)
-          resolve()
-        } catch (savingErr) {
-          reject(savingErr)
-        }
+        resolve()
       })
     })
+  }
+
+  static setTokenToSession = async (req: Request, data: JwtSigningPayload) => {
+    await this.regenerateSessionAsync(req)
+    req.session.token = this.generateToken(data)
+    await this.saveSessionAsync(req)
   }
 
   static verifyToken = (token: string) => {

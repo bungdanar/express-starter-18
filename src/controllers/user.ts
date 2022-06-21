@@ -22,7 +22,7 @@ export class UserController {
       username: 'bungdanar',
     }
 
-    await Authentication.regenerateSessionWithTokenAsync(req, {
+    await Authentication.setTokenToSession(req, {
       userId: userData.userId,
     })
 
