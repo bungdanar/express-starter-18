@@ -1,9 +1,13 @@
 import { Request } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { Environment } from './environment'
 
+type JwtSigningPayload = {
+  userId: number | string
+}
+
 export class Authentication {
-  private static generateToken = (data: object) => {
+  private static generateToken = (data: JwtSigningPayload) => {
     return jwt.sign(data, Environment.APP_ENV.SECRET_KEY, {
       expiresIn: Environment.SESS_MAX_AGE_IN_SECOND,
     })
@@ -19,7 +23,10 @@ export class Authentication {
     })
   }
 
-  static regenerateSessionWithTokenAsync = (req: Request, data: object) => {
+  static regenerateSessionWithTokenAsync = (
+    req: Request,
+    data: JwtSigningPayload
+  ) => {
     const token = this.generateToken(data)
 
     return new Promise<void>((resolve, reject) => {
@@ -36,5 +43,9 @@ export class Authentication {
         }
       })
     })
+  }
+
+  static verifyToken = (token: string) => {
+    return jwt.verify(token, Environment.APP_ENV.SECRET_KEY) as JwtPayload
   }
 }

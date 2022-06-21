@@ -8,7 +8,10 @@ export class UserController {
     req: Request<any, any, UserLoginPayload>,
     res: Response
   ) => {
-    const { username, password } = req.body
+    const {
+      username,
+      //  password
+    } = req.body
 
     if (username.trim() !== 'bungdanar') {
       throw new BadRequestError('username or password is wrong')
@@ -19,8 +22,14 @@ export class UserController {
       username: 'bungdanar',
     }
 
-    await Authentication.regenerateSessionWithTokenAsync(req, userData)
+    await Authentication.regenerateSessionWithTokenAsync(req, {
+      userId: userData.userId,
+    })
 
     return res.status(200).send(userData)
+  }
+
+  static getCurrentUser = async (req: Request, res: Response) => {
+    return res.status(200).send(req.currentUser)
   }
 }
