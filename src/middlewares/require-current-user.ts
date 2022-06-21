@@ -13,6 +13,7 @@ export const requireCurrentuser = async (
   req.currentUser = {
     userId: req.jwtPayload!.userId as number,
     username: 'bungdanar',
+    exp: req.jwtPayload!.exp!,
   }
 
   next()

@@ -6,4 +6,5 @@ export interface UserLoginPayload {
 export interface CurrentUser {
   userId: number
   username: string
+  exp: number
 }
