@@ -2,6 +2,7 @@ import express from 'express'
 import 'express-async-errors'
 import session, { SessionOptions } from 'express-session'
 import { json } from 'body-parser'
+import cors from 'cors'
 import { errorHandler } from './middlewares/error-handler'
 import { userRouter } from './routers/user/router'
 import { Environment } from './utils/environment'
@@ -25,6 +26,12 @@ if (Environment.IS_PRODUCTION) {
   options.cookie!.secure = true
 }
 
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3005'],
+  })
+)
 app.use(session(options))
 app.use(json())
 
