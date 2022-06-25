@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { UserLoginPayload } from '../data-types/user'
+import { CurrentUser, UserLoginPayload } from '../data-types/user'
 import { BadRequestError } from '../errors/bad-request-error'
 import { Authentication } from '../utils/authentication'
 
 export class UserController {
   static login = async (
     req: Request<any, any, UserLoginPayload>,
-    res: Response
+    res: Response<CurrentUser>
   ) => {
     const {
       username,
@@ -26,7 +26,10 @@ export class UserController {
       userId: userData.userId,
     })
 
-    return res.status(200).send(userData)
+    return res.status(200).send({
+      ...userData,
+      exp: Authentication.expInSecond,
+    })
   }
 
   static getCurrentUser = async (req: Request, res: Response) => {

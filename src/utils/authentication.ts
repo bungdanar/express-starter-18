@@ -48,4 +48,8 @@ export class Authentication {
   static verifyToken = (token: string) => {
     return jwt.verify(token, Environment.APP_ENV.SECRET_KEY) as JwtPayload
   }
+
+  static get expInSecond(): number {
+    return Math.floor(Date.now() / 1000) + Environment.SESS_MAX_AGE_IN_SECOND
+  }
 }
