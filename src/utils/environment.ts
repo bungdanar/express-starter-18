@@ -7,6 +7,12 @@ interface AppEnv {
   readonly PORT: string
   readonly SECRET_KEY: string
   readonly SESS_MAX_AGE_IN_MINUTE: string
+
+  readonly DB_HOST: string
+  readonly DB_PORT: string
+  readonly DB_NAME: string
+  readonly DB_USER: string
+  readonly DB_PASSWORD: string
 }
 
 export class Environment {
@@ -15,6 +21,12 @@ export class Environment {
     PORT: process.env.PORT!,
     SECRET_KEY: process.env.SECRET_KEY!,
     SESS_MAX_AGE_IN_MINUTE: process.env.SESS_MAX_AGE_IN_MINUTE!,
+
+    DB_HOST: process.env.DB_HOST!,
+    DB_PORT: process.env.DB_PORT!,
+    DB_NAME: process.env.DB_NAME!,
+    DB_USER: process.env.DB_USER!,
+    DB_PASSWORD: process.env.DB_PASSWORD!,
   }
 
   static get IS_PRODUCTION(): boolean {

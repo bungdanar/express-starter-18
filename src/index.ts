@@ -1,4 +1,5 @@
 import { app } from './app'
+import { Database } from './utils/database'
 import { Environment } from './utils/environment'
 import { getErrorMessage } from './utils/get-err-message'
 
@@ -10,6 +11,10 @@ const start = async () => {
 
     // Reassign port
     LISTENING_PORT = parseInt(Environment.APP_ENV.PORT)
+
+    // Test db connection
+    await Database.context.authenticate()
+    console.log('Connected to database')
 
     console.log(`App has been lifted at ${new Date()}`)
   } catch (error) {
