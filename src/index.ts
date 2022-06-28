@@ -1,4 +1,5 @@
 import { app } from './app'
+import { initModels } from './models'
 import { Database } from './utils/database'
 import { Environment } from './utils/environment'
 import { getErrorMessage } from './utils/get-err-message'
@@ -14,6 +15,8 @@ const start = async () => {
 
     // Test db connection
     await Database.context.authenticate()
+    // Initiate all models and associations
+    initModels(Database.context)
     console.log('Connected to database')
 
     console.log(`App has been lifted at ${new Date()}`)

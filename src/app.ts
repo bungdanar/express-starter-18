@@ -6,6 +6,7 @@ import cors from 'cors'
 import { errorHandler } from './middlewares/error-handler'
 import { userRouter } from './routers/user/router'
 import { Environment } from './utils/environment'
+import { lapLhppuRouter } from './routers/lap-lhppu/router'
 
 const app = express()
 
@@ -36,6 +37,7 @@ app.use(session(options))
 app.use(json())
 
 app.use('/api/user', userRouter)
+app.use('/api/lapLhppu', lapLhppuRouter)
 
 app.use(errorHandler)
 
