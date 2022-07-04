@@ -1,21 +1,14 @@
-import { body } from 'express-validator'
+import Joi from 'joi'
 import { UserLoginPayload } from '../../data-types/user'
+import { CustomJoi } from '../../utils/custom-joi'
 
 export class UserValidator {
-  static checkLoginPayload = () => {
-    const keys: (keyof UserLoginPayload)[] = ['username', 'password']
-
-    return keys.map((k) => {
-      switch (k) {
-        case 'username':
-        case 'password': {
-          return body(k).notEmpty().isString().trim().escape()
-        }
-
-        default: {
-          return k
-        }
-      }
+  static validateLoginPayload = (payload: UserLoginPayload) => {
+    const schema = Joi.object<UserLoginPayload>({
+      username: Joi.string().trim().required().custom(CustomJoi.escapeHtml),
+      password: Joi.string().trim().required().custom(CustomJoi.escapeHtml),
     })
+
+    return schema.validate(payload)
   }
 }

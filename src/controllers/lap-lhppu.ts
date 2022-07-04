@@ -1,5 +1,8 @@
 import { Request, Response } from 'express'
-import { LapLhppu, LapLhppuAttributes } from '../models'
+import {
+  // LapLhppu,
+  LapLhppuAttributes,
+} from '../models'
 import { LapLhppuValidator } from '../routers/lap-lhppu/validator'
 
 export class LapLhppuController {

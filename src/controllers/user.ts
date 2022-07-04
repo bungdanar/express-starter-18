@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { CurrentUser, UserLoginPayload } from '../data-types/user'
 import { BadRequestError } from '../errors/bad-request-error'
+import { RequestValidationError } from '../errors/request-validation-error'
+import { UserValidator } from '../routers/user/validator'
 import { Authentication } from '../utils/authentication'
 
 export class UserController {
@@ -8,12 +10,18 @@ export class UserController {
     req: Request<any, any, UserLoginPayload>,
     res: Response<CurrentUser>
   ) => {
+    const { error, value: loginPayload } = UserValidator.validateLoginPayload(
+      req.body
+    )
+
+    if (error) throw new RequestValidationError(error)
+
     const {
       username,
       //  password
-    } = req.body
+    } = loginPayload
 
-    if (username.trim() !== 'bungdanar') {
+    if (username !== 'bungdanar') {
       throw new BadRequestError('username or password is wrong')
     }
 
