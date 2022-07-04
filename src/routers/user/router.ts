@@ -1,5 +1,5 @@
 import express from 'express'
-import { UserController } from '../../controllers/user'
+import { UserController } from './controller'
 import { requireCurrentuser } from '../../middlewares/require-current-user'
 import { requireToken } from '../../middlewares/require-token'
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { LapLhppuController } from '../../controllers/lap-lhppu'
+import { LapLhppuController } from './controller'
 
 const router = express.Router()
 

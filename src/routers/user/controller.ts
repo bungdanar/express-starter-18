@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { CurrentUser, UserLoginPayload } from '../data-types/user'
-import { BadRequestError } from '../errors/bad-request-error'
-import { RequestValidationError } from '../errors/request-validation-error'
-import { UserValidator } from '../routers/user/validator'
-import { Authentication } from '../utils/authentication'
+import { CurrentUser, UserLoginPayload } from '../../data-types/user'
+import { BadRequestError } from '../../errors/bad-request-error'
+import { RequestValidationError } from '../../errors/request-validation-error'
+import { UserValidator } from '../../routers/user/validator'
+import { Authentication } from '../../utils/authentication'
 
 export class UserController {
   static login = async (
