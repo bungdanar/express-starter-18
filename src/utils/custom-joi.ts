@@ -10,19 +10,33 @@ export class CustomJoi {
     'ends with :ASC or :DESC'
   )
 
-  static sortValidation() {
+  static sortQueryValidation() {
     return Joi.alternatives().try(
       this.sortPattern,
       Joi.array().items(this.sortPattern)
     )
   }
 
-  static limitValidation() {
+  static limitQueryValidation() {
     return Joi.number().integer().min(0).max(1000)
   }
 
-  static offsetValidation() {
+  static offsetQueryValidation() {
     return Joi.number().integer().min(0)
+  }
+
+  static intQueryValidation() {
+    return this.queryOperatorValidation(Joi.number().integer())
+  }
+
+  static stringQueryValidation() {
+    return this.queryOperatorValidation(
+      Joi.string().trim().custom(this.escapeHtml)
+    )
+  }
+
+  static dateQueryValidation() {
+    return this.queryOperatorValidation(Joi.date().iso())
   }
 
   static queryOperatorValidation<T>(validator: Joi.SchemaLike) {

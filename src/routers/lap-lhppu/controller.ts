@@ -1,24 +1,24 @@
 import { Request, Response } from 'express'
 import { RequestValidationError } from '../../errors/request-validation-error'
-import {
-  // LapLhppu,
-  LapLhppuAttributes,
-} from '../../models'
+import { LapLhppu } from '../../models'
+import { QueryBuilder } from '../../utils/query-builder'
 import { LapLhppuValidator } from './validator'
 
 export class LapLhppuController {
   static getAll = async (req: Request, res: Response) => {
-    const { error, value } = LapLhppuValidator.validateQueryExtended(req.query)
+    const { error, value } = LapLhppuValidator.validateQuery(req.query)
     if (error) throw new RequestValidationError(error)
 
-    return res.status(200).send(value)
+    const { offset, limit, sort, ...query } = value
 
-    // const data = await LapLhppu.findAll({
-    //   offset: 0,
-    //   limit: 10,
-    //   include: [{ association: LapLhppu.associations.lampiran }],
-    // })
+    const data = await LapLhppu.findAll({
+      offset: QueryBuilder.buildOffsetQuery(offset),
+      limit: QueryBuilder.buildLimitQuery(limit),
+      order: QueryBuilder.buildOrderQuery(sort),
+      where: QueryBuilder.buildWhereQueryAuto(query),
+      // include: [{ association: LapLhppu.associations.lampiran }],
+    })
 
-    // return res.status(200).send(data)
+    return res.status(200).send(data)
   }
 }
