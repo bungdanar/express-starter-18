@@ -30,7 +30,7 @@ if (Environment.IS_PRODUCTION) {
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3005'],
+    origin: Environment.CORS_ORIGIN,
   })
 )
 app.use(session(options))

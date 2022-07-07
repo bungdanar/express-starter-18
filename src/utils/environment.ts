@@ -7,6 +7,7 @@ interface AppEnv {
   readonly PORT: string
   readonly SECRET_KEY: string
   readonly SESS_MAX_AGE_IN_MINUTE: string
+  readonly CORS_ORIGIN: string
 
   readonly DB_HOST: string
   readonly DB_PORT: string
@@ -21,6 +22,7 @@ export class Environment {
     PORT: process.env.PORT!,
     SECRET_KEY: process.env.SECRET_KEY!,
     SESS_MAX_AGE_IN_MINUTE: process.env.SESS_MAX_AGE_IN_MINUTE!,
+    CORS_ORIGIN: process.env.CORS_ORIGIN!,
 
     DB_HOST: process.env.DB_HOST!,
     DB_PORT: process.env.DB_PORT!,
@@ -39,6 +41,10 @@ export class Environment {
 
   static get SESS_MAX_AGE_IN_MILISECOND(): number {
     return parseInt(this.APP_ENV.SESS_MAX_AGE_IN_MINUTE) * 60 * 1000
+  }
+
+  static get CORS_ORIGIN(): string[] {
+    return this.APP_ENV.CORS_ORIGIN.split(',')
   }
 
   private static throwEnvErrMsg = (msg: string): never => {
